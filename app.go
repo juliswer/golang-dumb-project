@@ -6,10 +6,23 @@ import (
 	"text/template"
 )
 
+type Users struct {
+	Name string
+	Skills string
+	Age int
+}
+
 func Index(rw http.ResponseWriter, r *http.Request) {
-	template, _ := template.ParseFiles("templates/index.html")
+	template, err := template.ParseFiles("templates/index.html")
 	
-	template.Execute(rw, nil )
+	user := Users{"Jhon Doe", "Web Developer", 27}
+
+	if err != nil {
+		panic(err)
+	} else {
+		template.Execute(rw, user)
+	}
+
 }
 
 func main() {
